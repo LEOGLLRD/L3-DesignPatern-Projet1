@@ -12,8 +12,8 @@ public abstract class InterfacePion extends ObserverPion {
     public int posX;
     public int posY;
     //Stratégie de Déplacement
-    protected DeplacementStrategie deplacementStrategie;
-    //1 pour equipe 1, et 2 pour equipe 2
+    public DeplacementStrategie deplacementStrategie;
+    //1 pour equipe du haut, et 2 pour equipe du bas
     int team;
 
     InterfacePion[][] echiquierState;
@@ -25,7 +25,7 @@ public abstract class InterfacePion extends ObserverPion {
 
 
     //Donne la couleur du pion en fonction de l'équipe
-    Color getColor() {
+    public Color getColor() {
         if (this.team == 1) {
             return Color.white;
         } else {

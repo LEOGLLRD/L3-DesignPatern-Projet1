@@ -60,6 +60,10 @@ public class Echiquier implements Observable {
         //Ajout Roi et Reine
         echiquierState[0][3] = new Roi(0, 3);
         echiquierState[0][4] = new Reine(0, 4);
+        //Ajout des pions
+        for (int i=0; i < echiquierState[1].length; i++){
+            echiquierState[1][i] = new Pion(1, i);
+        }
 
         //Ajout des pions du bas
         //Ajout des tours
@@ -74,6 +78,11 @@ public class Echiquier implements Observable {
         //Ajout Roi et Reine
         echiquierState[7][4] = new Roi(7, 4);
         echiquierState[7][3] = new Reine(7, 3);
+        //Ajout des pions
+        for (int i=0; i < echiquierState[6].length; i++){
+            echiquierState[6][i] = new Pion(6, i);
+        }
+
 
         //Maintenant on parcourt le tableau pour ajouter tous les pions en observers
 
@@ -90,6 +99,8 @@ public class Echiquier implements Observable {
         //Enfin on les notifie pour qu'ils se mettent tous à jour de l'état de l'échiquier
         notifyAllObservers();
 
+
+
     }
 
     public InterfacePion[][] getEchiquierState() {
@@ -105,7 +116,7 @@ public class Echiquier implements Observable {
             s += "[";
             for (int j = 0; j < echiquierState[i].length; j++) {
                 if (echiquierState[i][j] != null) {
-                    s += "[" + echiquierState[i][j].toString() + "]";
+                    s += "[" + echiquierState[i][j].toString() + echiquierState[i][j].posX + ":" + echiquierState[i][j].posY + "]";
                 }continue;
             }
             s += "]\n";

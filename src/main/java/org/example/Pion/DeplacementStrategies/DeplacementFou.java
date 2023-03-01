@@ -2,8 +2,7 @@ package org.example.Pion.DeplacementStrategies;
 
 import org.example.Pion.InterfacePion;
 
-public class DeplacementRoi implements DeplacementStrategie{
-
+public class DeplacementFou implements DeplacementStrategie{
 
     @Override
     public boolean[][] preview(InterfacePion[][] echiquierState, int x, int y, int team) {
@@ -14,5 +13,4 @@ public class DeplacementRoi implements DeplacementStrategie{
     public void move(int i, int j) {
 
     }
-
 }
