@@ -9,12 +9,12 @@ import java.awt.*;
 public abstract class InterfacePion extends ObserverPion {
 
     //Position du pion
-    public int posX;
-    public int posY;
-    //Stratégie de Déplacement
-    public DeplacementStrategie deplacementStrategie;
-    //1 pour equipe du haut, et 2 pour equipe du bas
-    int team;
+    public int posX; // deplacement vertical
+    public int posY; // deplacement horizontal
+
+    public DeplacementStrategie deplacementStrategie; // Stratégie de Déplacement
+
+    public int team; // 1 pour equipe du haut, et 2 pour equipe du bas
 
     InterfacePion[][] echiquierState;
 
@@ -33,7 +33,7 @@ public abstract class InterfacePion extends ObserverPion {
         }
     }
 
-    //Donne au pion sa position
+    //Permet de modifier la position du pion
     public void setPos(int x, int y) {
         this.posX = x;
         this.posY = y;
@@ -44,6 +44,7 @@ public abstract class InterfacePion extends ObserverPion {
         this.echiquierState = echiquierState;
     }
 
+    //Ordonne au pion de se mettre jour via son Observable
     @Override
     public void refresh(Observable observable) {
         if (observable instanceof Echiquier) {
@@ -52,6 +53,7 @@ public abstract class InterfacePion extends ObserverPion {
         }
     }
 
+    //Retourne le nom de la classe
     @Override
     public String toString() {
         return this.getClass().getSimpleName();

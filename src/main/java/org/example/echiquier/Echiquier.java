@@ -10,9 +10,12 @@ import java.util.List;
 
 public class Echiquier implements Observable {
 
+    //Liste de tous les observers
     List<InterfacePion> observers = new ArrayList<>();
 
-    InterfacePion[][] echiquierState = new InterfacePion[8][8];
+    //Etat de l'échiquer, la position de tous les pions
+    InterfacePion[][] echiquierState = new InterfacePion[7][7];
+
 
     public Echiquier(){
         startGame();
@@ -43,11 +46,12 @@ public class Echiquier implements Observable {
         }
     }
 
+    //Méthode de lancement du jeu
     public void startGame() {
 
         //Ajout des pions sur l'échiquier
 
-        //Ajout des pions du haut
+/////////////////////Ajout des pions du haut//////////////////////////
         //Ajout des tours
         echiquierState[0][0] = new Tour(0, 0);
         echiquierState[0][7] = new Tour(0, 7);
@@ -65,7 +69,7 @@ public class Echiquier implements Observable {
             echiquierState[1][i] = new Pion(1, i);
         }
 
-        //Ajout des pions du bas
+//////////////////////////Ajout des pions du bas///////////////////////
         //Ajout des tours
         echiquierState[7][0] = new Tour(7, 0);
         echiquierState[7][7] = new Tour(7, 7);
@@ -84,7 +88,7 @@ public class Echiquier implements Observable {
         }
 
 
-        //Maintenant on parcourt le tableau pour ajouter tous les pions en observers
+        //Maintenant, on parcourt le tableau pour ajouter tous les pions en observers
 
         for (int i = 0; i < echiquierState.length; i++) {
             for (int j = 0; j < echiquierState[i].length; j++) {
@@ -96,17 +100,19 @@ public class Echiquier implements Observable {
             }
         }
 
-        //Enfin on les notifie pour qu'ils se mettent tous à jour de l'état de l'échiquier
+        //Enfin, on les notifie pour qu'ils se mettent tous à jour de l'état de l'échiquier
         notifyAllObservers();
 
 
 
     }
 
+    //Retourne l'état actuel de l'échiquier, la position de tous les pions
     public InterfacePion[][] getEchiquierState() {
         return this.echiquierState;
     }
 
+    //Méthode d'affichage de l'échiquier
     @Override
     public String toString() {
 
@@ -116,7 +122,7 @@ public class Echiquier implements Observable {
             s += "[";
             for (int j = 0; j < echiquierState[i].length; j++) {
                 if (echiquierState[i][j] != null) {
-                    s += "[" + echiquierState[i][j].toString() + echiquierState[i][j].posX + ":" + echiquierState[i][j].posY + "]";
+                    s += "\t[" + echiquierState[i][j].toString() + echiquierState[i][j].posX + ":" + echiquierState[i][j].posY + "]\t";
                 }continue;
             }
             s += "]\n";
