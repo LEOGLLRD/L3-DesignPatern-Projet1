@@ -4,7 +4,7 @@ import org.example.Pion.InterfacePion;
 
 import java.util.Arrays;
 
-public class DeplacementTour implements DeplacementStrategie{
+public class DeplacementTour implements DeplacementStrategie {
 
     @Override
     public boolean[][] preview(InterfacePion[][] echiquierState, int x, int y, int team) {
@@ -25,77 +25,69 @@ public class DeplacementTour implements DeplacementStrategie{
         boolean left = false;
         boolean bottom = false;
 
-        for (int i = 0; i < 7; i++){
+        for (int i = 0; i < 7; i++) {
 
-            //Vérification que l'on n'a pas déjà rencontré un pion
-            if(!top){
-
+            //Vérification que l'on n'a pas déjà rencontré un pion en se déplaçant vers le haut
+            if (!top) {
+                //Vérification si on ne sort pas de l'échiquier
+                if (x - i >= 0) {
+                    //Vérification s'il n'y a pas de pion
+                    if (echiquierState[x - i][y] == null) {
+                        available[x - i][y] = true;
+                    }
+                    //Sinon vérification que le pion présent est de l'équipe adverse
+                    else if (echiquierState[x - i][y].team != team) {
+                        available[x - i][y] = true;
+                        top = true;
+                    }
+                }
+            }
+            //Vérification que l'on n'a pas déjà rencontré un pion en se déplaçant vers la gauche
+            if (!left) {
+                //Vérification si on ne sort pas de l'échiquier
+                if (y - i >= 0) {
+                    //Vérification s'il n'y a pas de pion
+                    if (echiquierState[x][y - i] == null) {
+                        available[x][y - i] = true;
+                    }
+                    //Sinon vérification que le pion présent est de l'équipe adverse
+                    else if (echiquierState[x][y - i].team != team) {
+                        available[x][y - i] = true;
+                        left = true;
+                    }
+                }
+            }
+            //Vérification que l'on n'a pas déjà rencontré un pion en se déplaçant vers la droite
+            if (!right) {
+                //Vérification si on ne sort pas de l'échiquier
+                if (y + i <= 7) {
+                    //Vérification s'il n'y a pas de pion
+                    if (echiquierState[x][y + i] == null) {
+                        available[x][y + i] = true;
+                    }
+                    //Sinon vérification que le pion présent est de l'équipe adverse
+                    else if (echiquierState[x][y + i].team != team) {
+                        available[x][y + i] = true;
+                        right = true;
+                    }
+                }
+            }
+            //Vérification que l'on n'a pas déjà rencontré un pion en se déplaçant vers le bas
+            if (!bottom) {
+                //Vérification si on ne sort pas de l'échiquier
+                if (x + i <= 7) {
+                    //Vérification s'il n'y a pas de pion
+                    if (echiquierState[x + i][y] == null) {
+                        available[x + i][y] = true;
+                    }
+                    //Sinon vérification que le pion présent est de l'équipe adverse
+                    else if (echiquierState[x + i][y].team != team) {
+                        available[x + i][y] = true;
+                        bottom = true;
+                    }
+                }
             }
 
-            if (!left){
-
-            }
-
-
-        }
-
-
-        //Déplacement vertical vers le bas :
-
-        for(int i = x; i < 7; i++){
-            //Vérification qu'il n'y a pas un pion allié sur le chemin, ou que la case est vide
-            if(echiquierState[i][y] == null){
-                available[i][y] = true;
-            }
-            //S'il y a un pion adverse, on compte la position comme accessible mais on quitte la boucle
-            else if(echiquierState[i][y].team != team){
-                available[i][y] = true;
-                break;
-            }
-
-        }
-        //Déplacement vertical vers le haut :
-
-        for(int i = x; i > 0; i--){
-            //Vérification qu'il n'y a pas un pion allié sur le chemin, ou que la case est vide
-            if(echiquierState[i][y] == null){
-                available[i][y] = true;
-            }
-            //S'il y a un pion adverse, on compte la position comme accessible mais on quitte la boucle
-            else if(echiquierState[i][y].team != team){
-                available[i][y] = true;
-                break;
-            }
-
-        }
-
-        //Déplacement horizontal vers la gauche :
-
-        for(int i = y; i > 0; i--){
-            //Vérification qu'il n'y a pas un pion allié sur le chemin, ou que la case est vide
-            if(echiquierState[x][i] == null){
-                available[x][i] = true;
-            }
-            //S'il y a un pion adverse, on compte la position comme accessible mais on quitte la boucle
-            else if(echiquierState[x][i].team != team){
-                available[x][i] = true;
-                break;
-            }
-
-        }
-
-        //Déplacement horizontal vers la droite :
-
-        for(int i = y; i < 7; i++){
-            //Vérification qu'il n'y a pas un pion allié sur le chemin, ou que la case est vide
-            if(echiquierState[x][i] == null){
-                available[x][i] = true;
-            }
-            //S'il y a un pion adverse, on compte la position comme accessible mais on quitte la boucle
-            else if(echiquierState[x][i].team != team){
-                available[x][i] = true;
-                break;
-            }
 
         }
 
@@ -107,7 +99,6 @@ public class DeplacementTour implements DeplacementStrategie{
 
     @Override
     public boolean move(int i, int j) {
-
 
 
         return false;

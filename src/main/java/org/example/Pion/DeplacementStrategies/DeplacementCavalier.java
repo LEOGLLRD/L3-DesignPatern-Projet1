@@ -1,7 +1,6 @@
 package org.example.Pion.DeplacementStrategies;
 
 import org.example.Pion.InterfacePion;
-
 import java.util.Arrays;
 
 public class DeplacementCavalier implements DeplacementStrategie {
