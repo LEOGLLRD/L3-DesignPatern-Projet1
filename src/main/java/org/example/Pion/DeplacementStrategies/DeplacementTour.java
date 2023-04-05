@@ -4,7 +4,7 @@ import org.example.Pion.InterfacePion;
 
 import java.util.Arrays;
 
-public class DeplacementTour implements DeplacementStrategie {
+public class DeplacementTour extends DeplacementStrategie {
 
     @Override
     public boolean[][] preview(InterfacePion[][] echiquierState, int x, int y, int team) {
@@ -35,6 +35,10 @@ public class DeplacementTour implements DeplacementStrategie {
                     if (echiquierState[x - i][y] == null) {
                         available[x - i][y] = true;
                     }
+                    //Vérification si on rencontre un pion allié
+                    else if (echiquierState[x - i][y].team == team) {
+                        top = true;
+                    }
                     //Sinon vérification que le pion présent est de l'équipe adverse
                     else if (echiquierState[x - i][y].team != team) {
                         available[x - i][y] = true;
@@ -49,6 +53,10 @@ public class DeplacementTour implements DeplacementStrategie {
                     //Vérification s'il n'y a pas de pion
                     if (echiquierState[x][y - i] == null) {
                         available[x][y - i] = true;
+                    }
+                    //Vérification si on rencontre un pion allié
+                    else if (echiquierState[x][y - i].team == team) {
+                        left = true;
                     }
                     //Sinon vérification que le pion présent est de l'équipe adverse
                     else if (echiquierState[x][y - i].team != team) {
@@ -65,6 +73,10 @@ public class DeplacementTour implements DeplacementStrategie {
                     if (echiquierState[x][y + i] == null) {
                         available[x][y + i] = true;
                     }
+                    //Vérification si on rencontre un pion allié
+                    else if (echiquierState[x][y + i].team == team) {
+                        right = true;
+                    }
                     //Sinon vérification que le pion présent est de l'équipe adverse
                     else if (echiquierState[x][y + i].team != team) {
                         available[x][y + i] = true;
@@ -79,6 +91,10 @@ public class DeplacementTour implements DeplacementStrategie {
                     //Vérification s'il n'y a pas de pion
                     if (echiquierState[x + i][y] == null) {
                         available[x + i][y] = true;
+                    }
+                    //Vérification si on rencontre un pion allié
+                    else if (echiquierState[x + i][y].team == team) {
+                        bottom = true;
                     }
                     //Sinon vérification que le pion présent est de l'équipe adverse
                     else if (echiquierState[x + i][y].team != team) {
@@ -95,12 +111,5 @@ public class DeplacementTour implements DeplacementStrategie {
         available[x][y] = false;
 
         return available;
-    }
-
-    @Override
-    public boolean move(int i, int j) {
-
-
-        return false;
     }
 }

@@ -16,11 +16,12 @@ public abstract class InterfacePion extends ObserverPion {
 
     public int team; // 1 pour equipe du haut, et 2 pour equipe du bas
 
-    InterfacePion[][] echiquierState;
+    public InterfacePion[][] echiquierState;
 
 
-    public InterfacePion(int x, int y) {
+    protected InterfacePion(int x, int y, int team) {
         this.setPos(x, y);
+        this.team = team;
     }
 
 

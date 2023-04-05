@@ -4,7 +4,7 @@ import org.example.Pion.InterfacePion;
 
 import java.util.Arrays;
 
-public class DeplacementPion implements DeplacementStrategie {
+public class DeplacementPion extends DeplacementStrategie {
 
     boolean hasAlreadyPlayed = false;
 
@@ -17,7 +17,6 @@ public class DeplacementPion implements DeplacementStrategie {
             //Remplie la matrice avec la valeur false
             Arrays.fill(available[i], false);
         }
-
 
 
         if (team == 1) {
@@ -72,9 +71,4 @@ public class DeplacementPion implements DeplacementStrategie {
         return available;
     }
 
-    @Override
-    public boolean move(int i, int j) {
-
-        return false;
-    }
 }

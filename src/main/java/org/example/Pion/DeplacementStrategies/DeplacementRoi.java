@@ -4,7 +4,7 @@ import org.example.Pion.InterfacePion;
 
 import java.util.Arrays;
 
-public class DeplacementRoi implements DeplacementStrategie {
+public class DeplacementRoi extends DeplacementStrategie {
 
 
     @Override
@@ -103,14 +103,6 @@ public class DeplacementRoi implements DeplacementStrategie {
         }
 
         return available;
-    }
-
-    @Override
-    public boolean move(int i, int j) {
-
-
-
-        return false;
     }
 
 }

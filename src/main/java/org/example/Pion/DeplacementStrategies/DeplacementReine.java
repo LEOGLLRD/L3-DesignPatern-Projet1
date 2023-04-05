@@ -4,7 +4,7 @@ import org.example.Pion.InterfacePion;
 
 import java.util.Arrays;
 
-public class DeplacementReine implements DeplacementStrategie{
+public class DeplacementReine extends DeplacementStrategie{
 
     @Override
     public boolean[][] preview(InterfacePion[][] echiquierState, int x, int y, int team) {
@@ -185,11 +185,5 @@ public class DeplacementReine implements DeplacementStrategie{
         available[x][y] = false;
 
         return available;
-    }
-
-    @Override
-    public boolean move(int i, int j) {
-
-        return false;
     }
 }

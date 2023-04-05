@@ -3,7 +3,7 @@ package org.example.Pion.DeplacementStrategies;
 import org.example.Pion.InterfacePion;
 import org.example.Pion.ObserverPion;
 
-public interface DeplacementStrategie {
+public abstract class DeplacementStrategie {
 
 
     //Methode prenant en entrée l'état de l'échiquier, ainsi que les coordonnées de la pièce courante
@@ -16,11 +16,8 @@ public interface DeplacementStrategie {
     //y : position sur l'axz horizontal
     //team : équipe du pion
 
-    boolean[][] preview(InterfacePion[][] echiquierState, int x, int y, int team);
+    public abstract boolean[][] preview(InterfacePion[][] echiquierState, int x, int y, int team);
 
-    //Méthode pour déplacer le pion à une nouvelle position.
-    //Retourne faux si le pion a pu être déplacé, faux sinon.
-    boolean move(int i, int j);
 
 
 
