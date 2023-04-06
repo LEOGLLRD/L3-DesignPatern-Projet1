@@ -250,22 +250,21 @@ public class Echiquier implements Observable {
 
         String s = "";
 
-        s += "\t\t[-----A----]\t\t";
-        s += "\t\t[-----B----]\t\t";
-        s += "\t\t[-----C----]\t\t";
-        s += "\t\t[-----D----]\t\t";
-        s += "\t\t[-----E----]\t\t";
-        s += "\t\t[-----F----]\t\t";
-        s += "\t\t[-----G----]\t\t";
-        s += "\t\t[-----H----]\t\t\n";
+        s += "\t[-----A----]\t";
+        s += "\t[-----B----]\t";
+        s += "\t[-----C----]\t";
+        s += "\t[-----D----]\t";
+        s += "\t[-----E----]\t";
+        s += "\t[-----F----]\t";
+        s += "\t[-----G----]\t";
+        s += "\t[-----H----]\t\n";
         for (int i = 0; i < echiquierState.length; i++) {
             s += (i + 1) + "[";
             for (int j = 0; j < echiquierState[i].length; j++) {
                 if (echiquierState[i][j] != null) {
-                    s += "\t\t[" + echiquierState[i][j].toString() + ":" + echiquierState[i][j].team + "]\t\t";
-                }
-                else {
-                    s += "\t\t[---null---]\t\t";
+                    s += "\t[" + echiquierState[i][j].toString() + ":" + echiquierState[i][j].team + "]\t";
+                } else {
+                    s += "\t[---null---]\t";
                 }
             }
             s += "]" + (i + 1) + "\n";
@@ -300,6 +299,7 @@ public class Echiquier implements Observable {
     public boolean movePion(InterfacePion pion, int x, int y) {
         //Récupération des déplacements possibles
         boolean[][] deplacementsPossibles = pion.deplacementStrategie.preview(echiquierState, pion.posX, pion.posY, pion.team);
+
 
         //Vérification le déplacement est possible
         if (deplacementsPossibles[x][y]) {

@@ -26,7 +26,7 @@ public class DeplacementReine extends DeplacementStrategie{
         boolean left = false;
         boolean bottom = false;
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 1; i < 7; i++) {
 
             //Vérification que l'on n'a pas déjà rencontré un pion en se déplaçant vers le haut
             if (!top) {
@@ -35,6 +35,10 @@ public class DeplacementReine extends DeplacementStrategie{
                     //Vérification s'il n'y a pas de pion
                     if (echiquierState[x - i][y] == null) {
                         available[x - i][y] = true;
+                    }
+                    //Vérification si on rencontre un pion allié
+                    else if (echiquierState[x - i][y].team == team) {
+                        top = true;
                     }
                     //Sinon vérification que le pion présent est de l'équipe adverse
                     else if (echiquierState[x - i][y].team != team) {
@@ -51,6 +55,10 @@ public class DeplacementReine extends DeplacementStrategie{
                     if (echiquierState[x][y - i] == null) {
                         available[x][y - i] = true;
                     }
+                    //Vérification si on rencontre un pion allié
+                    else if (echiquierState[x][y - i].team == team) {
+                        left = true;
+                    }
                     //Sinon vérification que le pion présent est de l'équipe adverse
                     else if (echiquierState[x][y - i].team != team) {
                         available[x][y - i] = true;
@@ -66,6 +74,10 @@ public class DeplacementReine extends DeplacementStrategie{
                     if (echiquierState[x][y + i] == null) {
                         available[x][y + i] = true;
                     }
+                    //Vérification si on rencontre un pion allié
+                    else if (echiquierState[x][y + i].team == team) {
+                        right = true;
+                    }
                     //Sinon vérification que le pion présent est de l'équipe adverse
                     else if (echiquierState[x][y + i].team != team) {
                         available[x][y + i] = true;
@@ -80,6 +92,11 @@ public class DeplacementReine extends DeplacementStrategie{
                     //Vérification s'il n'y a pas de pion
                     if (echiquierState[x + i][y] == null) {
                         available[x + i][y] = true;
+
+                    }
+                    //Vérification si on rencontre un pion allié
+                    else if (echiquierState[x + i][y].team == team) {
+                        bottom = true;
                     }
                     //Sinon vérification que le pion présent est de l'équipe adverse
                     else if (echiquierState[x + i][y].team != team) {
@@ -113,6 +130,10 @@ public class DeplacementReine extends DeplacementStrategie{
                         if (echiquierState[x - i][y - i] == null) {
                             available[x - i][y - i] = true;
                         }
+                        //Vérification si on rencontre un pion allié
+                        else if (echiquierState[x - i][y - i].team == team) {
+                            topleft = true;
+                        }
                         //Sinon vérification que le pion présent est de l'équipe adverse
                         else if (echiquierState[x - i][y - i].team != team) {
                             available[x - i][y - i] = true;
@@ -131,6 +152,10 @@ public class DeplacementReine extends DeplacementStrategie{
                         //Vérification s'il n'y a pas de pion
                         if (echiquierState[x - i][y + i] == null) {
                             available[x - i][y + i] = true;
+                        }
+                        //Vérification si on rencontre un pion allié
+                        else if (echiquierState[x - i][y + i].team == team) {
+                            topright = true;
                         }
                         //Sinon vérification que le pion présent est de l'équipe adverse
                         else if (echiquierState[x - i][y + i].team != team) {
@@ -151,6 +176,10 @@ public class DeplacementReine extends DeplacementStrategie{
                         if (echiquierState[x + i][y - i] == null) {
                             available[x + i][y - i] = true;
                         }
+                        //Vérification si on rencontre un pion allié
+                        else if (echiquierState[x + i][y - i].team == team) {
+                            bottomleft = true;
+                        }
                         //Sinon vérification que le pion présent est de l'équipe adverse
                         else if (echiquierState[x + i][y - i].team != team) {
                             available[x + i][y - i] = true;
@@ -169,6 +198,10 @@ public class DeplacementReine extends DeplacementStrategie{
                         //Vérification s'il n'y a pas de pion
                         if (echiquierState[x + i][y + i] == null) {
                             available[x + i][y + i] = true;
+                        }
+                        //Vérification si on rencontre un pion allié
+                        else if (echiquierState[x + i][y + i].team == team) {
+                            bottomright = true;
                         }
                         //Sinon vérification que le pion présent est de l'équipe adverse
                         else if (echiquierState[x + i][y + i].team != team) {

@@ -25,7 +25,7 @@ public class DeplacementTour extends DeplacementStrategie {
         boolean left = false;
         boolean bottom = false;
 
-        for (int i = 0; i < 7; i++) {
+        for (int i = 1; i < 7; i++) {
 
             //Vérification que l'on n'a pas déjà rencontré un pion en se déplaçant vers le haut
             if (!top) {
@@ -91,6 +91,7 @@ public class DeplacementTour extends DeplacementStrategie {
                     //Vérification s'il n'y a pas de pion
                     if (echiquierState[x + i][y] == null) {
                         available[x + i][y] = true;
+
                     }
                     //Vérification si on rencontre un pion allié
                     else if (echiquierState[x + i][y].team == team) {
