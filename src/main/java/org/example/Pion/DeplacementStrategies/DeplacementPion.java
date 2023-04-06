@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class DeplacementPion extends DeplacementStrategie {
 
-    boolean hasAlreadyPlayed = false;
+    public boolean hasAlreadyPlayed = false;
 
     @Override
     public boolean[][] preview(InterfacePion[][] echiquierState, int x, int y, int team) {

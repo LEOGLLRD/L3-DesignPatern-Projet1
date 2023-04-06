@@ -5,8 +5,7 @@ import org.example.Pion.PionsConcrets.*;
 
 public class FabriquePion {
 
-
-
+    //Méthode pour la fabriquation d'un pion
     public static InterfacePion getPion(String type, int x, int y, int team) {
         if (type.equals("Pion")) return new Pion(x, y, team);
         if (type.equals("Tour")) return new Tour(x, y, team);

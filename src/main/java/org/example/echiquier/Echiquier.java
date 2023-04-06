@@ -1,8 +1,12 @@
 package org.example.echiquier;
 
+import org.example.Pion.DeplacementStrategies.DeplacementPion;
+import org.example.Pion.Décorateur.DecorateurPion;
+import org.example.Pion.Décorateur.PionAvecCompteur;
 import org.example.Pion.Observer;
 import org.example.Pion.InterfacePion;
 import org.example.Pion.PionsConcrets.Fabrique.FabriquePion;
+import org.example.Pion.PionsConcrets.Pion;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,7 +72,8 @@ public class Echiquier implements Observable {
 
         //Ajout des pions sur l'échiquier
 
-/////////////////////Ajout des pions du haut//////////////////////////
+        /////////////////////Ajout des pions du haut//////////////////////////
+
         //Ajout des tours
         echiquierState[0][0] = FabriquePion.getPion("Tour", 0, 0, JOUEUR1);
         echiquierState[0][7] = FabriquePion.getPion("Tour", 0, 7, JOUEUR1);
@@ -87,7 +92,8 @@ public class Echiquier implements Observable {
             echiquierState[1][i] = FabriquePion.getPion("Pion", 1, i, JOUEUR1);
         }
 
-//////////////////////////Ajout des pions du bas///////////////////////
+        //////////////////////////Ajout des pions du bas///////////////////////
+
         //Ajout des tours
         echiquierState[7][0] = FabriquePion.getPion("Tour", 7, 0, JOUEUR2);
         echiquierState[7][7] = FabriquePion.getPion("Tour", 7, 7, JOUEUR2);
@@ -106,9 +112,10 @@ public class Echiquier implements Observable {
             echiquierState[6][i] = FabriquePion.getPion("Pion", 6, i, JOUEUR2);
         }
 
+        //Transformation du pion en A2 en pion avec compteur
+        echiquierState[1][0] = new PionAvecCompteur(echiquierState[1][0]);
 
         //Maintenant, on parcourt le tableau pour ajouter tous les pions en observers
-
         for (int i = 0; i < echiquierState.length; i++) {
             for (int j = 0; j < echiquierState[i].length; j++) {
                 //On ajoute les observers
@@ -140,8 +147,8 @@ public class Echiquier implements Observable {
                 //Vérification si la réponse est valide
                 if (checkIfAnswerIsOK(ans)) {
                     //Conversion de la réponse en x,y
-                    int x = Integer.parseInt(String.valueOf(ans.charAt(1))) - 1;
-                    int y = convertPosH(String.valueOf(ans.charAt(0)));
+                    int x = Integer.parseInt(String.valueOf(Character.toUpperCase(ans.charAt(1)))) - 1;
+                    int y = convertPosH(String.valueOf(Character.toUpperCase(ans.charAt(0))));
                     System.out.println("Vous avez choisi la position : (" + x + ", " + y + ")");
                     //Vérification si le joueur possède un pion à cette position
                     pion = echiquierState[x][y];
@@ -174,11 +181,10 @@ public class Echiquier implements Observable {
                 //Vérification si la réponse est valide
                 if (checkIfAnswerIsOK(ans)) {
                     //Conversion de la réponse en x,y
-                    int x = Integer.parseInt(String.valueOf(ans.charAt(1))) - 1;
-                    int y = convertPosH(String.valueOf(ans.charAt(0)));
+                    int x = Integer.parseInt(String.valueOf(Character.toUpperCase(ans.charAt(1)))) - 1;
+                    int y = convertPosH(String.valueOf(Character.toUpperCase(ans.charAt(0))));
                     //Vérification le déplacement a été réalisé
                     if (movePion(pion, x, y)) {
-                        System.out.println("Déplacement Réalisé !");
                         ansOk2 = true;
                     } else {
                         System.out.println("Vous ne pouvez bouger votre pion ici !");
@@ -189,11 +195,8 @@ public class Echiquier implements Observable {
                 }
 
             }
-
-            if (ansOk1 && ansOk2) {
-                player = togglePlayer(player);
-            }
-
+            //On change de joueur
+            player = togglePlayer(player);
 
         }
 
@@ -201,40 +204,31 @@ public class Echiquier implements Observable {
 
     //Converti la position horizontale en integer
     public int convertPosH(String c) {
-        switch (c) {
-            case "A":
-                return 0;
-            case "B":
-                return 1;
-            case "C":
-                return 2;
-            case "D":
-                return 3;
-            case "E":
-                return 4;
-            case "F":
-                return 5;
-            case "G":
-                return 6;
-            case "H":
-                return 7;
-            default:
-                return -1;
-        }
+        return switch (c) {
+            case "A" -> 0;
+            case "B" -> 1;
+            case "C" -> 2;
+            case "D" -> 3;
+            case "E" -> 4;
+            case "F" -> 5;
+            case "G" -> 6;
+            case "H" -> 7;
+            default -> -1;
+        };
     }
 
     //Vérifie si un caractère est contenu dans le tableau des positions verticales
     public boolean checkIfCharInPosV(String c) {
-        for (int i = 0; i < posV.length; i++) {
-            if (c.equals(posV[i])) return true;
+        for (String s : posV) {
+            if (c.equals(s)) return true;
         }
         return false;
     }
 
     //Vérifie si un caractère est contenu dans le tableau des positions horizontales
     public boolean checkIfCharInPosH(String c) {
-        for (int i = 0; i < posH.length; i++) {
-            if (c.equals(posH[i])) return true;
+        for (String h : posH) {
+            if (c.equals(h)) return true;
         }
         return false;
     }
@@ -300,18 +294,38 @@ public class Echiquier implements Observable {
         //Récupération des déplacements possibles
         boolean[][] deplacementsPossibles = pion.deplacementStrategie.preview(echiquierState, pion.posX, pion.posY, pion.team);
 
-
         //Vérification le déplacement est possible
         if (deplacementsPossibles[x][y]) {
             //Si le déplacement est réalisé à un endroit où il y a un pion
             if (echiquierState[x][y] != null) {
                 //On retire le pion qui doit être supprimé des observateurs
                 observers.remove(echiquierState[x][y]);
+                //On vérifie si le pion a la possibilité de compter
+                if (pion instanceof PionAvecCompteur) {
+                    //Si oui on incrémente son compteur
+                    ((PionAvecCompteur) pion).incrPionsMange();
+                    System.out.println(pion.toString() + " a mangé : " + ((PionAvecCompteur) pion).getPionsMange() + " pion(s)");
+                }
+                //On vérifie si le pion est un Pion, car il ne peut avancer de 2 qu'au premier coup
+                if (pion instanceof Pion) {
+                    System.out.println("oui");
+                    ((DeplacementPion) (pion.deplacementStrategie)).hasAlreadyPlayed = true;
+                }
+                //Sinon, on vérifie si le pion est de type PionAvecCompteur
+                else if (pion instanceof PionAvecCompteur) {
+                    //Si oui on vérifie quel type de pion est décoré
+                    if ((((PionAvecCompteur) pion).pion instanceof Pion)) {
+                        System.out.println("oui");
+                        ((DeplacementPion) (pion.deplacementStrategie)).hasAlreadyPlayed = true;
+                    }
+                }
             }
             //On retire le pion courant de sa position actuelle
             echiquierState[pion.posX][pion.posY] = null;
             //Et on déplace le pion courant à sa nouvelle position
             echiquierState[x][y] = pion;
+            //On donne sa nouvelle position au pion
+            pion.setPos(x, y);
             //Enfin, on notifie tous les observateurs du changement, et retourne vrai
             notifyAllObservers();
             return true;
